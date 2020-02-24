@@ -230,3 +230,192 @@ const sumDivisors = (limit) => {
 
     return sum;
 }
+
+//Section 45 calculateGrade
+//A partir de un array de notas, calcula la media, y después devuelve la nota en letra
+// 0-59 :F
+// 60-69: D
+// 70-79: C
+// 80-89: B
+// 90-100: A
+
+const marks = [80,80,50];
+
+const calculateGrade = (marks) => {
+    const average = calculateAverage(marks);
+    if (average < 60) return 'F';
+    if (average < 70) return 'D';
+    if (average < 80) return 'C';
+    if (average < 90) return 'B';
+    return 'A';
+}
+
+const calculateAverage = (array) => {
+    let sum = 0;
+    for (const value of array) 
+        sum += value;
+    return sum / array.length;
+}
+
+
+// Section 46
+
+const patternStars = (number) => {
+    let pattern = '';
+    for (let i = 0; i < number; i++) 
+        pattern += '*';
+    return pattern;
+}
+
+const showStars = (number) => {
+    for (let row = 1; row <= number; row++)
+        console.log(patternStars(row));
+}
+
+
+// Section 47
+
+const isPrime = (number) => {
+    const maxDivisorToTry = Math.floor(Math.sqrt(number));
+    for (let divisor = 2; divisor <= maxDivisorToTry; divisor++) 
+        if (number % divisor === 0) 
+            return false;
+    return true;
+};
+
+const showPrimes = (limit) => {
+    for (let number = 2; number <= limit; number++)
+        isPrime(number) && console.log(number);
+};
+
+
+// SECTION 5 OBJECTS. Object oriented style programming OOP
+// draw es un method si una función es parte de un objeto
+
+const circle = {
+    radius: 1,
+    center: {
+        x: 1,
+        y: 1
+    },
+    isVisible: true,
+    draw: () => console.log('draw')
+};
+
+// FACTORY FUNCTIONS, produce objects
+
+const createCircle = (radius, center) => {
+    return {
+        radius: radius,
+        center: center,
+        draw: () => console.log('draw'),
+    };
+}
+
+const circle1 = createCircle(2,3);
+console.log(circle1.radius)
+
+
+//CONTRUCTOR FUNCTION Pascal notation
+
+//camel notation: oneTwoThreeFour
+// Pascal notation: OneTwoThree
+
+function Circle(radius) {
+    this.radius = radius;
+    this.draw = function() {
+        console.log('draw');
+    }
+    // implícitamente hacer un return this
+}
+
+const circle = new Circle(1);
+
+// las diferencia entre una factory function y una constructor function
+// En la primera usamos el return, en la segunda no hace falta
+// en la segunda usamos new y this
+// en la primera usamos camel notation en el constructor usamos pascal notation
+
+
+//Dynamic nature of objects
+// Objects in Js are dynamic. siempre podemos añdir o modificar propiedades
+
+const circle = {
+    radius: 1
+};
+
+circle.color = 'yellow';
+circle.draw = function() {
+    console.log('draw')
+}
+
+delete circle.color;
+
+// no podemos reasignar el valor de cirlce porque es una constante pero sí podemos añadir propiedades dinámicamente
+
+//Constructor property
+
+// Hemos visto dos maneras de contruir objetos, con factory functions y con constructor functions
+// si construimos un círculo con la constructor function podemos hacer circle.constructor y hace referencia a la función Circle que es quien la ha creado
+// El constructor function no se puede hacer con const y arrow function ????
+
+function Triangle(size) {
+    this.size = size;
+    this.draw = () => {console.log('draw')};
+}
+
+const triangle1 = new Triangle(7);
+
+triangle1.constructor;
+
+
+circle1.constructor // objec
+
+//Cuando hacemos algo de este tip0
+
+let x = {};
+// debajo se  hace algo de este tipo let x = new Object;
+
+
+//FUNCTIONS ARE OBJECTS
+//Triangle.name = Triangle, Triangle.length = 1 número de argumentos
+
+
+//value vs reference types
+// VALUE TYPES : Number, string, boolean, symbol, undefined, null
+// Reference types: Object, Function, Array
+
+let x = 10;
+let y = x;
+
+x = 20;
+
+// son independientes
+
+let x = { value: 10 };
+let y = x;
+x.value = 20; // y = { value: 20}
+
+
+// primitives are copied by their value
+// Objects are copied by their reference
+
+// objects no son iterables
+
+if ('value' in x) console.log('sí')
+
+//CLONING AN OBJECT
+
+const circle = {
+    color: 'yellow'
+};
+
+const another = {
+    value: 10
+};
+
+const circle2 = Object.assign(circle,another)  //circle también cambia
+
+// garbage collection
+
+// TEMPLATE LITERALS
